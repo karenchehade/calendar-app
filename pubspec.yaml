@@ -35,6 +35,20 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   table_calendar: ^3.0.6
+  #shared preferences
+  shared_preferences: ^2.0.15
+
+  #calendar
+  syncfusion_flutter_calendar: ^20.1.59
+  #handel dates
+  intl : ^0.17.0
+
+  font_awesome_flutter: '>= 4.7.0'
+  google_fonts: ^3.0.1
+  
+  #state management
+  provider: ^5.0.0
+  # flutter_event_calendar: ^0.0.8
   
 
 dev_dependencies:
