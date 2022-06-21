@@ -1,15 +1,16 @@
 import 'package:app/pages/event_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:events_calendar/utils.dart';
-
+import '../db/database.dart';
 import '../main.dart';
 import '../model/event.dart';
 import '../provider/event_provider.dart';
 
 class EventViewingPage extends StatelessWidget {
   final Event? event;
-  const EventViewingPage({Key? key, this.event}) : super(key: key);
+  final int? eventId;
+  const EventViewingPage({Key? key, this.eventId, this.event})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +61,9 @@ class EventViewingPage extends StatelessWidget {
         icon: const Icon(Icons.edit),
       ),
       IconButton(
-          onPressed: () {
+          onPressed: () async {
             final provider = Provider.of<EventProvider>(context, listen: false);
+           
             provider.deleteEvent(event);
             Navigator.pushNamed(context, Routes.home);
           },

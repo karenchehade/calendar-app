@@ -198,6 +198,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
     if (isValid) {
       final event = Event(
+
           title: titleController.text,
           from: fromDate,
           to: toDate,
@@ -209,7 +210,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
       final provider = Provider.of<EventProvider>(context, listen: false);
       final selectedEvents = provider.eventOfSelectedDate;
       if (isEditing) {
-        provider.editEvent(event, widget.event!);
+        provider.editEvent(event);
         Navigator.of(context).pop();
       } else {
         provider.addEvent(event);

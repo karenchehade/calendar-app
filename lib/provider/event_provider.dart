@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-
+import '../db/database.dart';
 import '../model/event.dart';
 
 class EventProvider extends ChangeNotifier {
-  final List<Event> _events = [];
+  final List<Event> _events = EventsDB.instance.readAllEvents() as List<Event>;
 
   DateTime _selectedDate = DateTime.now();
 
@@ -13,21 +13,27 @@ class EventProvider extends ChangeNotifier {
 
   List<Event> get eventOfSelectedDate => _events;
 
-  List<Event> get events => _events;
-  void addEvent(Event event) {
-    _events.add(event);
+ List<Event> get events => _events;
+
+
+
+
+  void addEvent(Event event) async {
+    // _events.add(event);
+     await EventsDB.instance.create(event);
     notifyListeners();
   }
 
-  void deleteEvent(Event event ) {
-    _events.remove(event);
+  void deleteEvent(Event event ) async{
+    // _events.remove(event);
+     await EventsDB.instance.delete(event.id as int);
     notifyListeners();
   }
 
-  void editEvent(Event newEvent, Event oldEvent) {
-    final index = _events.indexOf(oldEvent);
-    _events[index] = newEvent;
-
+  void editEvent(Event newEvent) async {
+    // final index = _events.indexOf(oldEvent);
+    // _events[index] = newEvent;
+   await EventsDB.instance.update(newEvent);
     notifyListeners();
   }
 }

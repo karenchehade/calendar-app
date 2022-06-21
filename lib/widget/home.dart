@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: const Calendar(),
+      body:  Calendar(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
           child: const Icon(

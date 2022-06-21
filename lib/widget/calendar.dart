@@ -34,7 +34,9 @@ class Calendar extends StatelessWidget {
                 ),
               );
       },
+       showDatePickerButton: true,
       monthViewSettings: const MonthViewSettings(
+         showTrailingAndLeadingDates: false,
           showAgenda: true,
           agendaStyle: AgendaStyle(
             backgroundColor: Colors.white,
