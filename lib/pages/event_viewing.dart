@@ -3,34 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'package:events_calendar/utils.dart';
 
+import '../main.dart';
 import '../model/event.dart';
 import '../provider/event_provider.dart';
 
 class EventViewingPage extends StatelessWidget {
-  final Event event;
-  const EventViewingPage({Key? key, required this.event}) : super(key: key);
+  final Event? event;
+  const EventViewingPage({Key? key, this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: const CloseButton(), actions: buildViewingActions(context, event)),
+          backgroundColor: Theme.of(context).primaryColor,
+          leading: const CloseButton(),
+          actions: buildViewingActions(context, event!)),
       body: ListView(
         padding: const EdgeInsets.all(32),
         children: <Widget>[
-          buildDateTime(event),
+          buildDateTime(event!),
           const SizedBox(
             height: 32,
           ),
           Text(
-            event.title,
+            event!.title,
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 24,
           ),
           Text(
-            event.description,
+            event!.description,
             style: const TextStyle(
                 fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
           )
@@ -60,6 +63,7 @@ class EventViewingPage extends StatelessWidget {
           onPressed: () {
             final provider = Provider.of<EventProvider>(context, listen: false);
             provider.deleteEvent(event);
+            Navigator.pushNamed(context, Routes.home);
           },
           icon: const Icon(Icons.delete))
     ];

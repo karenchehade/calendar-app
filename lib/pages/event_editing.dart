@@ -1,6 +1,7 @@
 import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../main.dart';
 import '../model/event.dart';
 import '../provider/event_provider.dart';
 
@@ -43,6 +44,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         leading: const CloseButton(),
         actions: buildEditingAction(),
       ),
@@ -193,6 +195,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
+
     if (isValid) {
       final event = Event(
           title: titleController.text,
@@ -204,12 +207,15 @@ class _EventEditingPageState extends State<EventEditingPage> {
       final isEditing = widget.event != null;
 
       final provider = Provider.of<EventProvider>(context, listen: false);
+      final selectedEvents = provider.eventOfSelectedDate;
       if (isEditing) {
         provider.editEvent(event, widget.event!);
         Navigator.of(context).pop();
       } else {
         provider.addEvent(event);
       }
+
+      Navigator.pushNamed(context, Routes.home);
     }
   }
 }

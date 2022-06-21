@@ -26,12 +26,13 @@ class Home extends StatelessWidget {
                         icon: notifier.isDarkTheme
                             ? const Icon(
                                 Icons.wb_sunny,
+                                size: 20,
                                 color: Colors.white,
                               )
                             : const FaIcon(
                                 FontAwesomeIcons.moon,
                                 size: 20,
-                                color: Colors.black,
+                                color: Colors.white,
                               ),
                         onPressed: () => {notifier.toggleTheme()}))
               ],
@@ -41,6 +42,7 @@ class Home extends StatelessWidget {
       ),
       body: const Calendar(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
           child: const Icon(
             Icons.add,
             color: Colors.white,
