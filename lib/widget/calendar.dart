@@ -4,14 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../model/event.dart';
 import '../model/event_data_source.dart';
 
-class Calendar extends StatelessWidget {
-  const Calendar({Key? key}) : super(key: key);
+class Calendar extends StatefulWidget {
+  Calendar({Key? key}) : super(key: key);
+
+  @override
+  State<Calendar> createState() => _CalendarState();
+}
+
+class _CalendarState extends State<Calendar> {
+  List<Event> events = [];
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
+  fetchData() async {
+    events = await Provider.of<EventProvider>(context).events;
+  }
+  // _CalendarState() {
+  //   Provider.of<EventProvider>(context).events.then((ev) => setState(() {
+  //         events = ev;
+  //       }));
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final events = Provider.of<EventProvider>(context).events;
+    // final events = Provider.of<EventProvider>(context).events;
     return SfCalendar(
       view: CalendarView.month,
       dataSource: EventDataSource(events),
@@ -22,21 +45,22 @@ class Calendar extends StatelessWidget {
       todayHighlightColor: Theme.of(context).primaryColor,
       monthCellBuilder: (BuildContext buildContext, MonthCellDetails details) {
         final Color backgroundColor = Theme.of(context).dividerColor;
-                 return Container(
-                decoration: BoxDecoration(
-                    color: backgroundColor,
-                ),
-                child: Center(
-                  child: Text(
-                    details.date.day.toString(),
-                    style: TextStyle(color:Theme.of(context).primaryTextTheme.bodyText1?.color),
-                  ),
-                ),
-              );
+        return Container(
+          decoration: BoxDecoration(
+            color: backgroundColor,
+          ),
+          child: Center(
+            child: Text(
+              details.date.day.toString(),
+              style: TextStyle(
+                  color: Theme.of(context).primaryTextTheme.bodyText1?.color),
+            ),
+          ),
+        );
       },
-       showDatePickerButton: true,
+      showDatePickerButton: true,
       monthViewSettings: const MonthViewSettings(
-         showTrailingAndLeadingDates: false,
+          showTrailingAndLeadingDates: false,
           showAgenda: true,
           agendaStyle: AgendaStyle(
             backgroundColor: Colors.white,

@@ -63,24 +63,4 @@ class Event {
         to: DateTime.parse(json[EventFields.to] as String),
         isAllDay: json[EventFields.isAllDay] == 1,
       );
-
-  // Map<String, dynamic> setMap() {
-  //   Map<String, dynamic> map = {'title': title, 'description': description};
-
-  //   // if (id != null) {
-  //   //   map['id'] = id;
-  //   // }
-  //   return map;
-  // }
-
-  // static Event fromMap(Map<String, dynamic> map) {
-  //   return Event(
-  //       // id: map['id'],
-  //       title: map['title'],
-  //       description: map['description'],
-  //       to: map['to'],
-  //       from: map['from'],
-  //       backgroundColor: map['backgroundColor'],
-  //       isAllDay: map['isAllDay']);
-  // }
 }

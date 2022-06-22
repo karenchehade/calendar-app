@@ -3,17 +3,17 @@ import '../db/database.dart';
 import '../model/event.dart';
 
 class EventProvider extends ChangeNotifier {
-  final List<Event> _events = EventsDB.instance.readAllEvents() as List<Event>;
-
+  final Future<List<Event>> _events = EventsDB.instance.readAllEvents();
+// final List<Event> _events =  [];
   DateTime _selectedDate = DateTime.now();
 
   DateTime get selectedDate => _selectedDate;
 
   void setDate(DateTime date) => _selectedDate = date;
 
-  List<Event> get eventOfSelectedDate => _events;
+  Future<List<Event>> get eventOfSelectedDate => _events;
 
- List<Event> get events => _events;
+Future<List<Event>> get events => _events;
 
 
 

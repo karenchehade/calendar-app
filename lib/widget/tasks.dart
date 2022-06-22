@@ -6,6 +6,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 // ignore: depend_on_referenced_packages
 import 'package:syncfusion_flutter_core/theme.dart';
 
+import '../model/event.dart';
 import '../pages/event_viewing.dart';
 
 class TasksWidget extends StatefulWidget {
@@ -16,12 +17,22 @@ class TasksWidget extends StatefulWidget {
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
+  List<Event> events = [];
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
+  fetchData() async {
+    events = await Provider.of<EventProvider>(context).events;
+  }
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EventProvider>(context);
     final selectedEvents = provider.eventOfSelectedDate;
 
-    if (selectedEvents.isEmpty) {
+    if (selectedEvents != null) {
    
       return const Center(
         child: Text(
@@ -36,7 +47,7 @@ class _TasksWidgetState extends State<TasksWidget> {
       ),
       child: SfCalendar(
         view: CalendarView.timelineDay,
-        dataSource: EventDataSource(provider.events),
+        dataSource: EventDataSource(events),
         initialDisplayDate: provider.selectedDate,
         appointmentBuilder: appointmentBuilder,
         headerHeight: 0,
