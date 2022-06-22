@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 const String tableEvents = 'events';
 
 class EventFields {
-  static const String id = '_id';
-  static const String title = 'title';
-  static const String description = 'description';
-  static const String from = 'from';
-  static const String to = 'to';
-  static const String isAllDay = 'isAllDay';
+static final List<String> values = [
+    /// Add all fields
+    id, title, description, fromDate, toDate, isAllDay
+  ];
+  static  String id = 'id';
+  static  String title = 'title';
+  static  String description = 'description';
+  static  String fromDate = 'fromDate';
+  static  String toDate = 'toDate';
+  static  String isAllDay = 'isAllDay';
 }
 
 class Event {
@@ -33,8 +37,8 @@ class Event {
         EventFields.id: id!,
         EventFields.title: title,
         EventFields.description: description,
-        EventFields.from: from.toIso8601String(),
-        EventFields.to: to.toIso8601String(),
+        EventFields.fromDate: from.toIso8601String(),
+        EventFields.toDate: to.toIso8601String(),
         EventFields.isAllDay: isAllDay ? 1 : 0
       };
 
@@ -59,8 +63,8 @@ class Event {
         id: json[EventFields.id] as int?,
         title: json[EventFields.title] as String,
         description: json[EventFields.description] as String,
-        from: DateTime.parse(json[EventFields.from] as String),
-        to: DateTime.parse(json[EventFields.to] as String),
+        from: DateTime.parse(json[EventFields.fromDate] as String),
+        to: DateTime.parse(json[EventFields.toDate] as String),
         isAllDay: json[EventFields.isAllDay] == 1,
       );
 }

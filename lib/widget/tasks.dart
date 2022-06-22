@@ -20,20 +20,23 @@ class _TasksWidgetState extends State<TasksWidget> {
   List<Event> events = [];
   @override
   void initState() {
-    fetchData();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => fetchData().then((value) => null));
+
     super.initState();
   }
 
-  fetchData() async {
-    events = await Provider.of<EventProvider>(context).events;
+  Future<void> fetchData() async {
+    events = await Provider.of<EventProvider>(context, listen: false).events;
+    print(events);
   }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EventProvider>(context);
-    final selectedEvents = provider.eventOfSelectedDate;
+   var selectedEvents = provider.eventOfSelectedDate;
 
     if (selectedEvents != null) {
-   
       return const Center(
         child: Text(
           'no Events found!',
@@ -57,9 +60,9 @@ class _TasksWidgetState extends State<TasksWidget> {
         ),
         onTap: (details) {
           if (details.appointments == null) return;
-          final event = details.appointments!.first;
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => EventViewingPage(event: event)));
+          // final event = details.appointments!.first;
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const EventViewingPage()));
         },
       ),
     );

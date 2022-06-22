@@ -1,3 +1,4 @@
+import 'package:app/db/database.dart';
 import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +20,13 @@ class _EventEditingPageState extends State<EventEditingPage> {
   final titleController = TextEditingController();
   late DateTime fromDate;
   late DateTime toDate;
+  List<Event> events = [];
 
   @override
   void initState() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => fetchData().then((value) => null));
+
     super.initState();
     if (widget.event == null) {
       fromDate = DateTime.now();
@@ -32,6 +37,10 @@ class _EventEditingPageState extends State<EventEditingPage> {
       fromDate = event.from;
       toDate = event.to;
     }
+  }
+
+  Future<void> fetchData() async {
+    events = await Provider.of<EventProvider>(context, listen: false).events;
   }
 
   @override
@@ -198,24 +207,24 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
     if (isValid) {
       final event = Event(
-
           title: titleController.text,
+          description: 'desc',
           from: fromDate,
           to: toDate,
-          description: 'desc',
           isAllDay: false);
 
       final isEditing = widget.event != null;
 
       final provider = Provider.of<EventProvider>(context, listen: false);
-      final selectedEvents = provider.eventOfSelectedDate;
+      // final selectedEvents = provider.eventOfSelectedDate;
       if (isEditing) {
         provider.editEvent(event);
+
         Navigator.of(context).pop();
       } else {
         provider.addEvent(event);
       }
-
+      fetchData();
       Navigator.pushNamed(context, Routes.home);
     }
   }

@@ -1,16 +1,33 @@
+import 'package:app/db/database.dart';
 import 'package:app/pages/event_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../db/database.dart';
 import '../main.dart';
 import '../model/event.dart';
 import '../provider/event_provider.dart';
 
-class EventViewingPage extends StatelessWidget {
-  final Event? event;
+class EventViewingPage extends StatefulWidget {
   final int? eventId;
-  const EventViewingPage({Key? key, this.eventId, this.event})
-      : super(key: key);
+  const EventViewingPage({Key? key, this.eventId}) : super(key: key);
+  @override
+  State<EventViewingPage> createState() => _EventViewingPageState();
+}
+
+class _EventViewingPageState extends State<EventViewingPage> {
+  late Event? event;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    refreshEvent();
+    super.initState();
+  }
+
+  Future<void> refreshEvent() async {
+     setState(() => isLoading = true);
+    event = await EventsDB.instance.readEvent(widget.eventId!);
+     setState(() => isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +36,32 @@ class EventViewingPage extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           leading: const CloseButton(),
           actions: buildViewingActions(context, event!)),
-      body: ListView(
-        padding: const EdgeInsets.all(32),
-        children: <Widget>[
-          buildDateTime(event!),
-          const SizedBox(
-            height: 32,
-          ),
-          Text(
-            event!.title,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          Text(
-            event!.description,
-            style: const TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.all(32),
+              children: <Widget>[
+                buildDateTime(event!),
+                const SizedBox(
+                  height: 32,
+                ),
+                Text(
+                  event!.title,
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  event!.description,
+                  style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
     );
   }
 
@@ -63,8 +85,8 @@ class EventViewingPage extends StatelessWidget {
       IconButton(
           onPressed: () async {
             final provider = Provider.of<EventProvider>(context, listen: false);
-           
             provider.deleteEvent(event);
+            refreshEvent();
             Navigator.pushNamed(context, Routes.home);
           },
           icon: const Icon(Icons.delete))

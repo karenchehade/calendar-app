@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
              routes: {
         Routes.home: (BuildContext context) => const Home(),
         Routes.edit: (BuildContext context) => const EventEditingPage(),
-        Routes.view: (BuildContext context) => const EventViewingPage(),
+        Routes.view: (BuildContext context) =>  const EventViewingPage(eventId: 0,),
       },
           );
         }),

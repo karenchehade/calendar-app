@@ -8,7 +8,7 @@ import '../model/event.dart';
 import '../model/event_data_source.dart';
 
 class Calendar extends StatefulWidget {
-  Calendar({Key? key}) : super(key: key);
+  const Calendar({Key? key}) : super(key: key);
 
   @override
   State<Calendar> createState() => _CalendarState();
@@ -19,22 +19,18 @@ class _CalendarState extends State<Calendar> {
 
   @override
   void initState() {
-    fetchData();
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => fetchData().then((value) => null));
+
     super.initState();
   }
 
-  fetchData() async {
-    events = await Provider.of<EventProvider>(context).events;
+  Future<void> fetchData() async {
+    events = await Provider.of<EventProvider>(context, listen: false).events;
   }
-  // _CalendarState() {
-  //   Provider.of<EventProvider>(context).events.then((ev) => setState(() {
-  //         events = ev;
-  //       }));
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // final events = Provider.of<EventProvider>(context).events;
     return SfCalendar(
       view: CalendarView.month,
       dataSource: EventDataSource(events),
@@ -79,7 +75,6 @@ class _CalendarState extends State<Calendar> {
           )),
       onLongPress: (details) {
         final provider = Provider.of<EventProvider>(context, listen: false);
-
         provider.setDate(details.date!);
         showModalBottomSheet(
           context: context,
