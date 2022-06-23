@@ -37,9 +37,9 @@ class _TasksWidgetState extends State<TasksWidget> {
   @override
   Widget build(BuildContext context) {
     // final provider = ;
-    print('$selectedEvents selected evets');
+    print('$selectedEvents selected events');
 
-    if (selectedEvents != null) {
+    if (selectedEvents == null) {
       return const Center(
         child: Text(
           'no Events found!',
