@@ -33,8 +33,8 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return SfCalendar(
       view: CalendarView.month,
+       initialSelectedDate: DateTime.now(),
       dataSource: EventDataSource(events),
-      initialSelectedDate: DateTime.now(),
       cellBorderColor: Colors.transparent,
       backgroundColor: Theme.of(context).dividerColor,
       todayTextStyle: Theme.of(context).primaryTextTheme.headline1,

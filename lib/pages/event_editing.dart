@@ -207,24 +207,22 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
     if (isValid) {
       final event = Event(
+          id: 0,
           title: titleController.text,
           description: 'desc',
           from: fromDate,
           to: toDate,
           isAllDay: false);
 
-      final isEditing = widget.event != null;
-
+      final isEditing = widget.event;
       final provider = Provider.of<EventProvider>(context, listen: false);
       // final selectedEvents = provider.eventOfSelectedDate;
-      if (isEditing) {
+      if (isEditing != null) {
         provider.editEvent(event);
-
         Navigator.of(context).pop();
       } else {
         provider.addEvent(event);
       }
-      fetchData();
       Navigator.pushNamed(context, Routes.home);
     }
   }

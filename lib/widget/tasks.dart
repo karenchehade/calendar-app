@@ -18,23 +18,26 @@ class TasksWidget extends StatefulWidget {
 
 class _TasksWidgetState extends State<TasksWidget> {
   List<Event> events = [];
+  List<Event> selectedEvents = [];
+  DateTime selectedDate = DateTime.now();
   @override
   void initState() {
     WidgetsBinding.instance
         .addPostFrameCallback((_) => fetchData().then((value) => null));
-
     super.initState();
   }
 
   Future<void> fetchData() async {
     events = await Provider.of<EventProvider>(context, listen: false).events;
-    print(events);
+    selectedEvents =
+        await Provider.of<EventProvider>(context, listen: false).eventOfSelectedDate;
+    selectedDate = await Provider.of<EventProvider>(context , listen: false).selectedDate;
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EventProvider>(context);
-   var selectedEvents = provider.eventOfSelectedDate;
+    // final provider = ;
+    print('$selectedEvents selected evets');
 
     if (selectedEvents != null) {
       return const Center(
@@ -51,7 +54,7 @@ class _TasksWidgetState extends State<TasksWidget> {
       child: SfCalendar(
         view: CalendarView.timelineDay,
         dataSource: EventDataSource(events),
-        initialDisplayDate: provider.selectedDate,
+        initialDisplayDate: selectedDate,
         appointmentBuilder: appointmentBuilder,
         headerHeight: 0,
         todayHighlightColor: Colors.black,
@@ -61,8 +64,8 @@ class _TasksWidgetState extends State<TasksWidget> {
         onTap: (details) {
           if (details.appointments == null) return;
           // final event = details.appointments!.first;
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const EventViewingPage()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const EventViewingPage()));
         },
       ),
     );

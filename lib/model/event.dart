@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 const String tableEvents = 'events';
 
 class EventFields {
-static final List<String> values = [
+  static final List<String> values = [
     /// Add all fields
     id, title, description, fromDate, toDate, isAllDay
   ];
-  static  String id = 'id';
-  static  String title = 'title';
-  static  String description = 'description';
-  static  String fromDate = 'fromDate';
-  static  String toDate = 'toDate';
-  static  String isAllDay = 'isAllDay';
+  static String id = 'id';
+  static String title = 'title';
+  static String description = 'description';
+  static String fromDate = 'fromDate';
+  static String toDate = 'toDate';
+  static String isAllDay = 'isAllDay';
 }
 
 class Event {
