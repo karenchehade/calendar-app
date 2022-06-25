@@ -8,13 +8,14 @@ import '../provider/event_provider.dart';
 
 class EventViewingPage extends StatefulWidget {
   final int? eventId;
-  const EventViewingPage({Key? key, this.eventId}) : super(key: key);
+  final Event? event;
+  const EventViewingPage({Key? key, this.eventId , this.event}) : super(key: key);
   @override
   State<EventViewingPage> createState() => _EventViewingPageState();
 }
 
 class _EventViewingPageState extends State<EventViewingPage> {
-  late Event? event;
+  late Event? eventt;
   bool isLoading = false;
 
   @override
@@ -24,9 +25,9 @@ class _EventViewingPageState extends State<EventViewingPage> {
   }
 
   Future<void> refreshEvent() async {
-     setState(() => isLoading = true);
-    event = await EventsDB.instance.readEvent(widget.eventId!);
-     setState(() => isLoading = false);
+    setState(() => isLoading = true);
+    eventt = await EventsDB.instance.readEvent(widget.eventId!);
+    setState(() => isLoading = false);
   }
 
   @override

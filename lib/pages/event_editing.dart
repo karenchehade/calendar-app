@@ -204,10 +204,10 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
-
+    int idcount = 0;
     if (isValid) {
       final event = Event(
-          id: 0,
+          id: idcount,
           title: titleController.text,
           description: 'desc',
           from: fromDate,
@@ -221,8 +221,10 @@ class _EventEditingPageState extends State<EventEditingPage> {
         provider.editEvent(event);
         Navigator.of(context).pop();
       } else {
+        idcount++;
         provider.addEvent(event);
       }
+      fetchData();
       Navigator.pushNamed(context, Routes.home);
     }
   }

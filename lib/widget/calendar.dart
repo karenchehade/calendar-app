@@ -19,9 +19,8 @@ class _CalendarState extends State<Calendar> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => fetchData().then((value) => null));
-
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => fetchData().then((value) => null));
     super.initState();
   }
 
@@ -33,7 +32,7 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return SfCalendar(
       view: CalendarView.month,
-       initialSelectedDate: DateTime.now(),
+      initialSelectedDate: DateTime.now(),
       dataSource: EventDataSource(events),
       cellBorderColor: Colors.transparent,
       backgroundColor: Theme.of(context).dividerColor,

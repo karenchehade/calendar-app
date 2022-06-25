@@ -44,7 +44,6 @@ class EventsDB {
   Future<Event> create(Event event) async {
     final db = await instance.database;
     final id = await db.insert(tableEvents, event.toJson());
-    print('eemelt add');
     return event.copy(id: id);
   }
 

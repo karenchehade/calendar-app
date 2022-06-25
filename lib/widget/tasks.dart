@@ -18,8 +18,6 @@ class TasksWidget extends StatefulWidget {
 
 class _TasksWidgetState extends State<TasksWidget> {
   List<Event> events = [];
-  List<Event> selectedEvents = [];
-  DateTime selectedDate = DateTime.now();
   @override
   void initState() {
     WidgetsBinding.instance
@@ -28,18 +26,16 @@ class _TasksWidgetState extends State<TasksWidget> {
   }
 
   Future<void> fetchData() async {
-    events = await Provider.of<EventProvider>(context, listen: false).events;
-    selectedEvents =
-        await Provider.of<EventProvider>(context, listen: false).eventOfSelectedDate;
-    selectedDate = await Provider.of<EventProvider>(context , listen: false).selectedDate;
+    // events = await provider.events;
+    // selectedEvents = await Provider.of<EventProvider>(context, listen: false).eventOfSelectedDate;
+    // selectedDate = ;
   }
 
   @override
   Widget build(BuildContext context) {
-    // final provider = ;
-    print('$selectedEvents selected events');
+    final provider = Provider.of<EventProvider>(context, listen: false);
 
-    if (selectedEvents == null) {
+    if (provider.eventOfSelectedDate == []) {
       return const Center(
         child: Text(
           'no Events found!',
@@ -52,9 +48,9 @@ class _TasksWidgetState extends State<TasksWidget> {
         timeTextStyle: const TextStyle(fontSize: 16, color: Colors.black),
       ),
       child: SfCalendar(
-        view: CalendarView.timelineDay,
-        dataSource: EventDataSource(events),
-        initialDisplayDate: selectedDate,
+        view: CalendarView.day,
+        dataSource: EventDataSource(provider.eventOfSelectedDate),
+        initialDisplayDate: provider.selectedDate,
         appointmentBuilder: appointmentBuilder,
         headerHeight: 0,
         todayHighlightColor: Colors.black,
@@ -63,9 +59,12 @@ class _TasksWidgetState extends State<TasksWidget> {
         ),
         onTap: (details) {
           if (details.appointments == null) return;
-          // final event = details.appointments!.first;
+          var event = details.appointments!.first;
+          print(details.appointments);
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const EventViewingPage()));
+              builder: (context) => EventViewingPage(
+                    event: event,
+                  )));
         },
       ),
     );
