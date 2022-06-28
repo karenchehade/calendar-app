@@ -1,4 +1,5 @@
 import 'package:app/utils.dart';
+import 'package:app/widget/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
@@ -29,7 +30,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
     super.initState();
     if (widget.event == null) {
       fromDate = DateTime.now();
-      toDate = DateTime.now().add(const Duration(hours: 2));
+      toDate = DateTime.now().add(const Duration(hours: 1));
     } else {
       final event = widget.event!;
       titleController.text = event.title;
@@ -39,7 +40,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
   }
 
   Future<void> fetchData() async {
-    events = await Provider.of<EventProvider>(context, listen: false).events;
+    events = await Provider.of<EventProvider>(context, listen: true).events;
   }
 
   @override
@@ -203,10 +204,11 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
-    int idcount = 0;
+    final provider = Provider.of<EventProvider>(context, listen: false);
+    provider.idcount;
     if (isValid) {
       final event = Event(
-          id: idcount,
+          id: provider.idcount,
           title: titleController.text,
           description: 'desc',
           from: fromDate,
@@ -214,17 +216,27 @@ class _EventEditingPageState extends State<EventEditingPage> {
           isAllDay: false);
 
       final isEditing = widget.event;
-      final provider = Provider.of<EventProvider>(context, listen: false);
+
       // final selectedEvents = provider.eventOfSelectedDate;
       if (isEditing != null) {
         provider.editEvent(event);
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
+        Navigator.pop(context, true);
       } else {
-        idcount++;
         provider.addEvent(event);
       }
-      fetchData();
-      Navigator.pushNamed(context, Routes.home);
+      //  Navigator.pop(context, true);
+      // Navigator.pushNamed(context, Routes.home);
+      Navigator.pushAndRemoveUntil(
+  			context,
+  			MaterialPageRoute(builder: (context) => const Home()), // this mymainpage is your page to refresh
+  			(Route<dynamic> route) => false,
+		);
+      // Navigator.of(context)
+      //     .push(
+      //       new MaterialPageRoute(builder: (_) => new PageTwo()),
+      //     )
+      //     .then((val) => val ? _getRequests() : null);
     }
   }
 }

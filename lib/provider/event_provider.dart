@@ -4,6 +4,7 @@ import '../model/event.dart';
 
 class EventProvider extends ChangeNotifier {
   List<Event> _events = [];
+  int idcount = 20;
   // List<Event> eventOfSelectedDate = [];
 
   @override
@@ -21,16 +22,17 @@ class EventProvider extends ChangeNotifier {
       // EventsDB.instance.readAllEvents();
       _events;
 
-  Future<List<Event>> get events async {
-    return EventsDB.instance.readAllEvents();
-  }
-  // => _events;
+  // Future<List<Event>> get events async {
+  //   return EventsDB.instance.readAllEvents();
+  // }
+  List<Event> get events => _events;
 
   // void setEvents(Future<List<Event>> value) => _events = value;
 
   void addEvent(Event event) async {
     // _events.add(event);
     await EventsDB.instance.create(event);
+    idcount++;
     notifyListeners();
   }
 

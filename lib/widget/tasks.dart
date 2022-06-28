@@ -33,7 +33,7 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EventProvider>(context, listen: false);
+    final provider = Provider.of<EventProvider>(context, listen: true);
 
     if (provider.eventOfSelectedDate == []) {
       return const Center(
