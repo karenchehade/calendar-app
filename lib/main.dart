@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             theme: notifier.isDarkTheme ? dark : light,
             // home: const Home(),
              routes: {
-        Routes.home: (BuildContext context) => Home(),
+        Routes.home: (BuildContext context) => const Home(),
         Routes.edit: (BuildContext context) => const EventEditingPage(),
         Routes.view: (BuildContext context) =>  const EventViewingPage(eventId: 0,),
       },

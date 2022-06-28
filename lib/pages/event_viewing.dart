@@ -1,4 +1,4 @@
-import 'package:app/db/database.dart';
+import 'package:app/utils.dart';
 import 'package:app/pages/event_editing.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +97,7 @@ class _EventViewingPageState extends State<EventViewingPage> {
   Widget buildDate(String title, DateTime date) => Row(
         children: [
           Text(title),
-          Text(date.toString()),
+          Text(Utils.toDateTime(date)),
         ],
       );
 }

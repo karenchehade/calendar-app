@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:app/pages/event_editing.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
-import '../model/event.dart';
 import '../provider/event_provider.dart';
 
 class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Event ev = Event();
+    // ignore: unused_local_variable
     final provider = Provider.of<EventProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +44,7 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      body: Calendar(),
+      body: const Calendar(),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           child: const Icon(
@@ -53,7 +52,7 @@ class Home extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => EventEditingPage()))),
+              MaterialPageRoute(builder: (context) => const EventEditingPage()))),
     );
   }
 }

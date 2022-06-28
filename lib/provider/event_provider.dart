@@ -5,13 +5,13 @@ import '../model/event.dart';
 class EventProvider extends ChangeNotifier {
   List<Event> _events = [];
   // List<Event> eventOfSelectedDate = [];
+
   @override
   void addListener(VoidCallback listener) async {
     _events = await EventsDB.instance.readAllEvents();
     super.addListener(listener);
   }
 
-// final List<Event> _events =  [];
   DateTime _selectedDate = DateTime.now();
 
   DateTime get selectedDate => _selectedDate;
@@ -37,7 +37,6 @@ class EventProvider extends ChangeNotifier {
   void deleteEvent(Event event) async {
     // _events.remove(event);
     await EventsDB.instance.delete(event.id as int);
-    print(_events);
     notifyListeners();
   }
 
@@ -45,7 +44,6 @@ class EventProvider extends ChangeNotifier {
     // final index = _events.indexOf(oldEvent);
     // _events[index] = newEvent;
     await EventsDB.instance.update(newEvent);
-    print('ana editt');
     notifyListeners();
   }
 }

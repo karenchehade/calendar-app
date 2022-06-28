@@ -1,4 +1,3 @@
-import 'package:app/db/database.dart';
 import 'package:app/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
