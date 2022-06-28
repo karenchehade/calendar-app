@@ -9,13 +9,13 @@ import '../provider/event_provider.dart';
 class EventViewingPage extends StatefulWidget {
   final int? eventId;
   final Event? event;
-  const EventViewingPage({Key? key, this.eventId , this.event}) : super(key: key);
+  const EventViewingPage({Key? key, this.eventId , this.event }) : super(key: key);
   @override
   State<EventViewingPage> createState() => _EventViewingPageState();
 }
 
 class _EventViewingPageState extends State<EventViewingPage> {
-  late Event? eventt;
+  // late Event? eventp;
   bool isLoading = false;
 
   @override
@@ -26,7 +26,7 @@ class _EventViewingPageState extends State<EventViewingPage> {
 
   Future<void> refreshEvent() async {
     setState(() => isLoading = true);
-    eventt = await EventsDB.instance.readEvent(widget.eventId!);
+    // eventp = await EventsDB.instance.readEvent(widget.eventId!);
     setState(() => isLoading = false);
   }
 
@@ -36,18 +36,18 @@ class _EventViewingPageState extends State<EventViewingPage> {
       appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           leading: const CloseButton(),
-          actions: buildViewingActions(context, event!)),
+          actions: buildViewingActions(context, widget.event!)),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               padding: const EdgeInsets.all(32),
               children: <Widget>[
-                buildDateTime(event!),
+                buildDateTime(widget.event!),
                 const SizedBox(
                   height: 32,
                 ),
                 Text(
-                  event!.title,
+                  widget.event!.title,
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.bold),
                 ),
@@ -55,7 +55,7 @@ class _EventViewingPageState extends State<EventViewingPage> {
                   height: 24,
                 ),
                 Text(
-                  event!.description,
+                  widget.event!.description,
                   style: const TextStyle(
                       fontSize: 18,
                       color: Colors.white,
@@ -69,8 +69,8 @@ class _EventViewingPageState extends State<EventViewingPage> {
   Widget buildDateTime(Event event) {
     return Column(
       children: [
-        buildDate(event.isAllDay ? 'All-day' : 'from', event.from),
-        if (!event.isAllDay) buildDate('To', event.to),
+        buildDate(event.isAllDay ? 'All-day' : 'from  ', widget.event!.from),
+        if (!event.isAllDay) buildDate('To  ', widget.event!.to),
       ],
     );
   }
@@ -80,13 +80,13 @@ class _EventViewingPageState extends State<EventViewingPage> {
       IconButton(
         onPressed: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-                builder: (context) => EventEditingPage(event: event))),
+                builder: (context) => EventEditingPage(event: widget.event!))),
         icon: const Icon(Icons.edit),
       ),
       IconButton(
           onPressed: () async {
             final provider = Provider.of<EventProvider>(context, listen: false);
-            provider.deleteEvent(event);
+            provider.deleteEvent(widget.event!);
             refreshEvent();
             Navigator.pushNamed(context, Routes.home);
           },
@@ -97,7 +97,7 @@ class _EventViewingPageState extends State<EventViewingPage> {
   Widget buildDate(String title, DateTime date) => Row(
         children: [
           Text(title),
-          // Text(date.f),
+          Text(date.toString()),
         ],
       );
 }
