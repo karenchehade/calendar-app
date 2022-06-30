@@ -7,36 +7,39 @@ import '../model/event.dart';
 import '../model/event_data_source.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({Key? key}) : super(key: key);
+  // List<Event> events ;
+  Calendar() : super();
 
   @override
   State<Calendar> createState() => _CalendarState();
 }
 
 class _CalendarState extends State<Calendar> {
-  // List<Event> events = [];
-
-  @override
-  void initState() {
-    // WidgetsBinding.instance
-    //     .addPostFrameCallback((_) => fetchData().then((value) => null));
-    super.initState();
-  }
-
-  // Future<void> fetchData() async {
-  //   events = await Provider.of<EventProvider>(context, listen: false).events;
+  // @override
+  // void initState() {
+  //   super.initState();
   // }
 
 //set State btaamel refresh lal method build
+
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EventProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print("ooooooo2222222222222");
+    provider.addListener(() {
+        print("ooooooo33333333333333");
+      });
+    });
     return ChangeNotifierProvider(
       create: (context) => EventProvider(),
       child: Consumer<EventProvider>(
           builder: (context, notifier, child) => SfCalendar(
                 view: CalendarView.month,
                 initialSelectedDate: DateTime.now(),
-                dataSource: EventDataSource(notifier.events),
+                dataSource:
+                    // widget.events != null ? EventDataSource(widget.events) :
+                    EventDataSource(notifier.events),
                 cellBorderColor: Colors.transparent,
                 backgroundColor: Theme.of(context).dividerColor,
                 todayTextStyle: Theme.of(context).primaryTextTheme.headline1,
@@ -85,7 +88,7 @@ class _CalendarState extends State<Calendar> {
                   provider.setDate(details.date!);
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) => const TasksWidget(),
+                    builder: (context) => TasksWidget(),
                   );
                 },
               )),

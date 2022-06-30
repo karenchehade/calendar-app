@@ -4,13 +4,14 @@ import '../model/event.dart';
 
 class EventProvider extends ChangeNotifier {
   List<Event> _events = [];
-  int idcount = 20;
+  int idcount = 10;
   // List<Event> eventOfSelectedDate = [];
 
   @override
   void addListener(VoidCallback listener) async {
     _events = await EventsDB.instance.readAllEvents();
     super.addListener(listener);
+    notifyListeners();
   }
 
   DateTime _selectedDate = DateTime.now();

@@ -205,7 +205,6 @@ class _EventEditingPageState extends State<EventEditingPage> {
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
     final provider = Provider.of<EventProvider>(context, listen: false);
-    provider.idcount;
     if (isValid) {
       final event = Event(
           id: provider.idcount,
@@ -220,23 +219,11 @@ class _EventEditingPageState extends State<EventEditingPage> {
       // final selectedEvents = provider.eventOfSelectedDate;
       if (isEditing != null) {
         provider.editEvent(event);
-        // Navigator.of(context).pop();
-        Navigator.pop(context, true);
+        Navigator.of(context).pop();
       } else {
         provider.addEvent(event);
       }
-      //  Navigator.pop(context, true);
-      // Navigator.pushNamed(context, Routes.home);
-      Navigator.pushAndRemoveUntil(
-  			context,
-  			MaterialPageRoute(builder: (context) => const Home()), // this mymainpage is your page to refresh
-  			(Route<dynamic> route) => false,
-		);
-      // Navigator.of(context)
-      //     .push(
-      //       new MaterialPageRoute(builder: (_) => new PageTwo()),
-      //     )
-      //     .then((val) => val ? _getRequests() : null);
+      Navigator.pushNamed(context, Routes.home);
     }
   }
 }

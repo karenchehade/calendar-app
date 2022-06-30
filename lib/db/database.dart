@@ -26,6 +26,7 @@ class EventsDB {
   }
 
   Future<void> _createDB(Database db, int version) async {
+     
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
     const boolType = 'BOOLEAN NOT NULL';
@@ -39,10 +40,12 @@ class EventsDB {
          ${EventFields.toDate} $textType,
            ${EventFields.isAllDay} $boolType
     )''');
+   
   }
 
   Future<Event> create(Event event) async {
     final db = await instance.database;
+    //  db.execute("DELETE FROM $tableEvents");
     final id = await db.insert(tableEvents, event.toJson());
     return event.copy(id: id);
   }
