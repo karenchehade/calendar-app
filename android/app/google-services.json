@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "309671283374",
+    "project_id": "calendar-88a4c",
+    "storage_bucket": "calendar-88a4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309671283374:android:da4d042e4bc5df1fc03b3f",
+        "android_client_info": {
+          "package_name": "com.example.firebaseSetup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309671283374-63m5uqil3qseeha6tccp6fnuf7579n3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZw8rlDE4q73mNLGo2xpO67Q4CrCtsjsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309671283374-63m5uqil3qseeha6tccp6fnuf7579n3r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "309671283374-u8p5fcqsd1fus5b32uib6eqtsljp2pfv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseSetup"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
