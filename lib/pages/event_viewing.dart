@@ -85,10 +85,9 @@ class _EventViewingPageState extends State<EventViewingPage> {
       ),
       IconButton(
           onPressed: () async {
-            final provider = Provider.of<EventProvider>(context, listen: false);
+            final provider = Provider.of<EventProvider>(context, listen: true);
             provider.deleteEvent(widget.event!);
-            Navigator.pop(context, true);
-            // Navigator.pushNamed(context, Routes.home);
+            Navigator.pushNamed(context, Routes.home);
           },
           icon: const Icon(Icons.delete))
     ];

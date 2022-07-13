@@ -27,7 +27,7 @@ class _CalendarState extends State<Calendar> {
     final provider = Provider.of<EventProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print("ooooooo2222222222222");
-    provider.addListener(() {
+      provider.addListener(() {
         print("ooooooo33333333333333");
       });
     });
@@ -37,9 +37,7 @@ class _CalendarState extends State<Calendar> {
           builder: (context, notifier, child) => SfCalendar(
                 view: CalendarView.month,
                 initialSelectedDate: DateTime.now(),
-                dataSource:
-                    // widget.events != null ? EventDataSource(widget.events) :
-                    EventDataSource(notifier.events),
+                dataSource: EventDataSource(notifier.events),
                 cellBorderColor: Colors.transparent,
                 backgroundColor: Theme.of(context).dividerColor,
                 todayTextStyle: Theme.of(context).primaryTextTheme.headline1,
@@ -88,7 +86,7 @@ class _CalendarState extends State<Calendar> {
                   provider.setDate(details.date!);
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) => TasksWidget(),
+                    builder: (context) => const TasksWidget(),
                   );
                 },
               )),

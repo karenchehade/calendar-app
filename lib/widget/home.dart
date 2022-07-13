@@ -5,12 +5,8 @@ import 'package:app/pages/event_editing.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../model/event.dart';
-import '../provider/event_provider.dart';
-
-// import '../provider/event_provider.dart';
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();

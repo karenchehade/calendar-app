@@ -19,16 +19,12 @@ class EventProvider extends ChangeNotifier {
   DateTime get selectedDate => _selectedDate;
 
   void setDate(DateTime date) => _selectedDate = date;
+
   List<Event> get eventOfSelectedDate =>
       // EventsDB.instance.readAllEvents();
       _events;
 
-  // Future<List<Event>> get events async {
-  //   return EventsDB.instance.readAllEvents();
-  // }
   List<Event> get events => _events;
-
-  // void setEvents(Future<List<Event>> value) => _events = value;
 
   void addEvent(Event event) async {
     // _events.add(event);

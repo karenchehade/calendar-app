@@ -10,6 +10,7 @@ import '../model/event.dart';
 import '../pages/event_viewing.dart';
 
 class TasksWidget extends StatefulWidget {
+  
   const TasksWidget({Key? key}) : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EventProvider>(context, listen: true);
+    final provider = Provider.of<EventProvider>(context, listen: false);
 
     if (provider.eventOfSelectedDate == []) {
       return const Center(

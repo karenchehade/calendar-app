@@ -40,7 +40,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
   }
 
   Future<void> fetchData() async {
-    events = await Provider.of<EventProvider>(context, listen: true).events;
+    events = Provider.of<EventProvider>(context, listen: false).events;
   }
 
   @override
@@ -205,6 +205,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
   Future saveForm() async {
     final isValid = _formKey.currentState!.validate();
     final provider = Provider.of<EventProvider>(context, listen: false);
+
     if (isValid) {
       final event = Event(
           id: provider.idcount,
@@ -216,7 +217,6 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
       final isEditing = widget.event;
 
-      // final selectedEvents = provider.eventOfSelectedDate;
       if (isEditing != null) {
         provider.editEvent(event);
         Navigator.of(context).pop();
