@@ -1,8 +1,10 @@
 import 'package:app/pages/event_editing.dart';
 import 'package:app/pages/event_viewing.dart';
+import 'package:app/pages/forgot_password_page.dart';
 import 'package:app/pages/welcome_page.dart';
 import 'package:app/provider/event_provider.dart';
 import 'package:app/theme.dart';
+import 'package:app/utils.dart';
 import 'package:app/widget/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +26,7 @@ class Routes {
   static const String home = '/home';
   static const String edit = '/edit';
   static const String view = '/view';
+  static const String forgotPass = '/forgoPass';
 }
 
 class MyApp extends StatelessWidget {
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<ThemeNotifier>(
             builder: (context, ThemeNotifier notifier, child) {
           return MaterialApp(
+            scaffoldMessengerKey: Utils.messengerKey,
             navigatorKey: navigatorKey,
             title: 'calendar',
             debugShowCheckedModeBanner: false,
@@ -47,6 +51,7 @@ class MyApp extends StatelessWidget {
               Routes.home: (BuildContext context) => const Home(),
               Routes.edit: (BuildContext context) => const EventEditingPage(),
               Routes.view: (BuildContext context) => const EventViewingPage(),
+              Routes.forgotPass : (BuildContext context) => ForgotPasswordPage(),
             },
           );
         }),

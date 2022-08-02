@@ -58,10 +58,13 @@ dependencies:
   #state management
   provider: ^5.0.0
   # flutter_event_calendar: ^0.0.8
+
+  #email provider
+  email_validator: '^2.1.16'
   
   #firebase
   firebase_core: ^1.19.1
-  firebase_auth: ^3.4.1
+  firebase_auth: ^3.6.2
   cloud_firestore: ^3.2.1
 
 dev_dependencies:

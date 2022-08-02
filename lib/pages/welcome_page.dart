@@ -31,7 +31,7 @@ class WelcomePage extends StatelessWidget {
             } else if (snapshot.hasData) {
               return const Home();
             } else {
-              return  AuthPage();
+              return  const AuthPage();
             }
           }),
     ));
