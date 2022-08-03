@@ -1,7 +1,6 @@
-import 'package:app/widget/logIn.dart';
+import 'package:app/pages/verify_email_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../widget/home.dart';
 import 'auth_page.dart';
 
@@ -29,9 +28,9 @@ class WelcomePage extends StatelessWidget {
                 child: Text('Something Went Wrong!!'),
               );
             } else if (snapshot.hasData) {
-              return const Home();
+              return VerifyEmailPage();
             } else {
-              return  const AuthPage();
+              return AuthPage();
             }
           }),
     ));

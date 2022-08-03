@@ -80,7 +80,7 @@ class _LogInState extends State<LogIn> {
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: Colors.blue,
-                      fontSize: 20),
+                      fontSize: 15),
                 ),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ForgotPasswordPage(),

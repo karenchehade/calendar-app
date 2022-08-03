@@ -1,6 +1,6 @@
 import 'package:app/theme.dart';
 import 'package:app/widget/calendar.dart';
-import 'package:app/widget/logIn.dart';
+import 'package:app/widget/logout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:app/pages/event_editing.dart';
@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
           Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -44,6 +44,11 @@ class _HomeState extends State<Home> {
                                 color: Colors.white,
                               ),
                         onPressed: () => {notifier.toggleTheme()})),
+                 const SizedBox(
+                  width: 140,
+                ),
+                const LogOut(),
+               
               ],
             ),
           )
